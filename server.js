@@ -13,6 +13,12 @@ const static = require("./routes/static")
 
 
 /* ***********************
+ * Static Files Middleware
+ *************************/
+
+app.use(express.static('public'));
+
+/* ***********************
  * "View Engine and Templates"
  *************************/
 app.set("view engine", "ejs")
@@ -25,12 +31,13 @@ app.set("layout", "./layouts/layout") // not at views root
  *************************/
 app.use(static)
 
+
 // Index route
 app.get("/", function(req, res){
   res.render("index", {title: "Home"})
 })
 
-
+ 
 
 /* ***********************
  * Local Server Information
