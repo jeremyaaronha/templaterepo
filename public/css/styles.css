@@ -6,8 +6,9 @@
 *:after {
   box-sizing: border-box;
 } */
-
-@media (min-width: 375px) {
+  html, body {
+    overflow-x: hidden;
+  }
 
   body {
     font-family: "Montserrat", sans-serif;
@@ -45,22 +46,44 @@
   nav {
     background-color:rgb(40, 42, 44);
     margin-bottom: 4em;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
   }
 
   nav ul {
     padding: 0px;
+    margin: 0;
+
   }
 
   nav ul li {
+    flex: 1;
     list-style: none;
     display: block;
     text-align: center;
-    padding: 14px;
     font-size: 24px;
+  }
+
+  nav ul li a {
+    text-decoration: none;
+    padding: 14px;
+    color: white;
+    display: block; 
+    transition: background-color 0.2s, color 0.2s; 
+
+  }
+
+  nav ul li a:hover {
+    color: #5DA7DC;
+
   }
 
   nav ul li:hover {
     background-color:rgb(35, 36, 38);
+    cursor: pointer;
+
+
   }
 
   .banner img {
@@ -80,12 +103,17 @@
   .banner .text-box a {
     display: block;
     padding: 3px;
+    font-size: 18px;
   }
 
   .banner .text-box img {
     margin: 12px;
     max-width: 50%;
     align-content: center;
+  }
+
+  .banner .text-box img:hover {
+    cursor: pointer;
   }
 
   .reviews-section {
@@ -99,8 +127,11 @@
 
   .reviews-section ul li{
     text-decoration: none;
-    font-size: 18px;
     padding: 5px;
+  }
+
+  .reviews-section ul li, .upgrades-section a {
+    font-size: 18px;
   }
 
   .upgrades-section {
@@ -110,12 +141,11 @@
   .upgrades-section h2 {
     font-size: 24px;
     margin-bottom: 20px;
+    text-align: left;
   }
   
   .upgrades-section {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    display: block;
     margin-bottom: 6em;
   }
   
@@ -125,7 +155,7 @@
     text-align: center;
   }
   
-  .upgrade-item img {
+  .upgrade-item a img {
     max-width: 100%;
   }
   
@@ -136,16 +166,184 @@
     color: white;
     font-size: 22px;
   }
-  
+
+  .upgrade-item a:hover {
+    color: #5DA7DC;
+  }
+
   footer {
     background-color:rgb(40, 42, 44);
     padding: 6em;
     margin: 0;
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+
+    header {
+      display: flex;
+      justify-content: space-between; 
+      align-items: center; 
+      text-align: left;
+    }
+  
+    .siteName {
+      padding: 0; 
+    }
+  
+    #tools {
+      padding: 0; 
+    }
+  
+    .siteName a {
+      font-size: 48px; 
+      margin-top: 2em;
+      margin-left: .5em;
+    }
+  
+    #tools a {
+      font-size: 24px; 
+      margin-top: 2em;
+      margin-right: .5em;
+    }
+
+    nav {
+      margin-top: 2em;
+    }
+
+    nav ul {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+    }
+
+    .banner img {
+      width: 100%;
+    }
+
+    .banner {
+      position: relative;
+    }
+  
+    .banner-img-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+  
+    .banner .text-box {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 20px;
+      text-align: left;
+      max-width: 300px;
+      color: white;
+    }
+  
+    .banner .text-box a {
+      display: block;
+      padding: 5px 0;
+      color: white;
+    }
+  
+    .banner .text-box img {
+      display: block;
+      margin-top: 10px;
+      max-width: 100%;
+    }
+
+    .content-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+    }
+  
+    .reviews-section {
+      flex: 1;
+      width: 50%;
+    }
+  
+    .upgrade-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .upgrades-section {
+      display: block;
+      width: 50%;
+      margin-top: 96px;
+    }
+
+    .upgrade-item {
+      border-radius: 2px;
+    }
+
+    .reviews-section ul li, .upgrades-section a {
+      font-size: 22px;
+    }
+
+  }
+
+  @media (min-width: 1024px) {
+
+    .siteName {
+      margin-top: 2.5em;
+      margin-left: 1em;
+    }
+
+    #tools {
+      padding-top: 3em;
+      margin-top: 0;
+    }
+
+    .banner .text-box h1 {
+      font-size: 48px;
+    }
+
+    .banner .text-box a {
+      font-size: 24px;
+    }
+
   }
 
 
+  @media (min-width: 1440px) {
 
-}
+    .banner .text-box h1 {
+      font-size: 64px;
+    }
+
+    .banner .text-box a {
+      font-size: 36px;
+    }
+
+    .banner .text-box {
+      max-width: 100%;
+    }
+
+    .banner .text-box img {
+      max-width: 80%;
+    }
+
+    .banner .banner-img-container img {
+      height: 70vh;
+    }
+
+    .reviews-section h2, .upgrades-section h2 {
+      font-size: 42px;
+    }
+
+    .reviews-section ul li, .upgrades-section a {
+      font-size: 24px;
+    }
+
+  }
 
 
 
