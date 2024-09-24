@@ -17,3 +17,8 @@ pnpm-lock.yaml
 
 #README file
 README.md
+
+#DATABASE DATA
+db-sql-code.sql
+inventory-data.txt
+Render CSE 340.session.sql

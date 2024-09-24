@@ -1,0 +1,18 @@
+{
+    "sqltools.connections": [
+        {
+            "pgOptions": {
+                "ssl": {
+                    "rejectUnauthorized": true
+                }
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "askForPassword": true,
+            "driver": "PostgreSQL",
+            "name": "Render CSE 340",
+            "connectString": "postgresql://cse340:q7o5o3COSoalAgRyRmOVOObf1XyPsRfE@dpg-crms6e08fa8c73anv57g-a.virginia-postgres.render.com/cse340_iqti"
+        }
+    ]
+}
