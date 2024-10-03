@@ -1,5 +1,5 @@
 const { Pool } = require("pg") /* imports the "Pool" functionality from the "pg" package. A pool is a collection of connection objects (10 is the default number) that allow multiple site visitors to be interacting with the database at any given time. This keeps you from having to create a separate connection for each interaction. */
-require("dotenv").config() /*mports the "dotenv" package which allows the sensitive information about the database location and connection credentials to be stored in a separate location and still be accessed. */
+require("dotenv").config() /* Imports the "dotenv" package which allows the sensitive information about the database location and connection credentials to be stored in a separate location and still be accessed. */
 /* ***************
  * Connection Pool
  * SSL Object needed for local testing of app
@@ -13,13 +13,15 @@ if (process.env.NODE_ENV == "development") {
     ssl: {
       rejectUnauthorized: false, // Ignora errores SSL para desarrollo
     },
-});
-} else {
-    pool = new Pool({
-      connectionString: process.env.DATABASE_URL, // URL de la base de datos
-    })
-    module.exports = pool
-  }
+  });
+} else { // new code to try fix the render SSL requirement !!!
+  pool = new Pool({
+    connectionString: process.env.DATABASE_URL, // URL de la base de datos
+    ssl: {
+      rejectUnauthorized: false, // Agrega SSL para producción también
+    },
+  });
+}
 
 // Added for troubleshooting queries
 // during development
@@ -35,4 +37,3 @@ module.exports = {
     }
   },
 }
-
