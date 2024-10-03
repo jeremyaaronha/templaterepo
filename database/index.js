@@ -13,7 +13,13 @@ if (process.env.NODE_ENV == "development") {
     ssl: {
       rejectUnauthorized: false, // Ignora errores SSL para desarrollo
     },
-})
+});
+} else {
+    pool = new Pool({
+      connectionString: process.env.DATABASE_URL, // URL de la base de datos
+    })
+    module.exports = pool
+  }
 
 // Added for troubleshooting queries
 // during development
@@ -30,9 +36,3 @@ module.exports = {
   },
 }
 
-} else {
-  pool = new Pool({
-    connectionString: process.env.DATABASE_URL, // URL de la base de datos
-  })
-  module.exports = pool
-}
