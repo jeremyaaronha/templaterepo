@@ -211,6 +211,19 @@
     color: #00ccff;
   }
   
+  /* SECCION INFO VEHICULO INDIVIDUAL */
+
+  .vehicle-detail {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .vehicle-detail img,
+  .vehicle-detail div {
+    grid-column: 1 / 2;
+  }
+
+
 
   footer {
     background-color:rgb(40, 42, 44);
@@ -327,6 +340,42 @@
 
     .reviews-section ul li, .upgrades-section a {
       font-size: 22px;
+    }
+
+    .vehicle-detail {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 20px;
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      gap: 15px;
+    }
+    
+    .vehicle-detail h1 {
+      grid-column: 2 / 3;
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+    
+    .vehicle-detail img {
+      grid-column: 1 / 2;
+      width: 100%;
+      border-radius: 8px;
+    }
+    
+    .vehicle-detail div {
+      grid-column: 2 / 3;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+    
+    .vehicle-detail p {
+      grid-column: 2 / 3;
+      font-size: 1.2rem;
+      margin-bottom: 0px;
+      line-height: 1.6;
     }
 
   }
