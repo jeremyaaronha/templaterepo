@@ -89,6 +89,9 @@ Util.buildVehicleDetail = function (vehicle) {
         <p>Color: ${vehicle.inv_color}</p> 
         <p id="description">${vehicle.inv_description}</p>
       </div>
+      <div class="buy-button">
+        <a href="#">Buy Now</a>
+      </div>
 
     </div>
   `

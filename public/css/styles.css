@@ -241,6 +241,37 @@
     padding-top: 25px;
   }
 
+  .buy-button {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    padding: 20px;
+  
+  }
+
+  .buy-button a {
+    background: #5DA7DC;
+    text-decoration: none;
+    color: #fff;
+    border: none;
+    height: 60px;
+    font-size: 1.7em;
+    padding: 8px;
+    cursor: pointer;
+    transition: 800ms ease all;
+    outline: none;
+    width: 250px;
+    padding-top: 25px;
+    border-radius: 2px;
+  }
+  
+  .buy-button a:hover {
+    background: #fff;
+    color: #5DA7DC;
+  }
+  
+  
+
   footer {
     background-color:rgb(40, 42, 44);
     padding: 6em;
@@ -381,7 +412,7 @@
       width: 100%;
     }
     
-    .vehicle-detail div {
+    .vehicle-detail .info-section {
       grid-column: 2 / 3;
       grid-row: 2 / 6;
       display: flex;
@@ -395,6 +426,16 @@
       margin: 2px 0;
       padding: 3px;
     }
+
+    .vehicle-detail .buy-button {
+      grid-column: 2 / 3;
+      grid-row: 6;
+      padding: 20px;
+      margin-top: 20px;
+
+    }
+
+
     
   }
 
