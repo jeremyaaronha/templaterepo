@@ -14,6 +14,8 @@
     font-family: "Montserrat", sans-serif;
     background-color: #212529;
     color: white;
+    font-weight: 3lsof00;
+
   }
 
   header {
@@ -215,15 +217,29 @@
 
   .vehicle-detail {
     grid-template-columns: 1fr;
-    text-align: center;
+    text-align: left;
+    padding: 10px;
   }
 
-  .vehicle-detail img,
-  .vehicle-detail div {
+  .vehicle-detail img {
     grid-column: 1 / 2;
+    margin: 0 auto;
+    display: block;
   }
 
+  #prominent {
+    font-size: 22px;
+    font-weight: 500;
+    color: #5DA7DC;
+  }
 
+  .vehicle-detail h1 {
+    font-weight: 400;
+  }
+
+  #description {
+    padding-top: 25px;
+  }
 
   footer {
     background-color:rgb(40, 42, 44);
@@ -346,26 +362,28 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       grid-gap: 20px;
-      padding: 20px;
+      padding-top: 20px;
       max-width: 1200px;
       margin: 0 auto;
-      gap: 15px;
     }
     
     .vehicle-detail h1 {
-      grid-column: 2 / 3;
+      grid-column: 2 / 3; 
+      grid-row: 1;
       font-size: 2rem;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
+      margin-top: 0px;
     }
     
     .vehicle-detail img {
       grid-column: 1 / 2;
+      grid-row: 2 / 6; 
       width: 100%;
-      border-radius: 8px;
     }
     
     .vehicle-detail div {
       grid-column: 2 / 3;
+      grid-row: 2 / 6;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
@@ -374,10 +392,10 @@
     .vehicle-detail p {
       grid-column: 2 / 3;
       font-size: 1.2rem;
-      margin-bottom: 0px;
-      line-height: 1.6;
+      margin: 2px 0;
+      padding: 3px;
     }
-
+    
   }
 
   @media (min-width: 1024px) {
@@ -400,11 +418,33 @@
       font-size: 24px;
     }
 
+    .vehicle-detail {
+      margin-bottom: 5px;
+      line-height: 1.4;
+    }
+
   }
 
   @media (min-width: 1076px) {
     #inv-display {
       justify-content: flex-start;
+    }
+
+  }
+
+  @media (min-width: 1104px) {
+    
+    .vehicle-detail h1 {
+      font-size: 36px;
+    }
+
+    #prominent {
+      font-size: 32px;
+    }
+
+    .vehicle-detail p {
+      font-size: 20px;
+      padding: 3px;
     }
   }
 
@@ -438,6 +478,8 @@
     .reviews-section ul li, .upgrades-section a {
       font-size: 24px;
     }
+
+
 
 
   }
