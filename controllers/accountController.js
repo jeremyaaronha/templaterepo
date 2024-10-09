@@ -14,4 +14,16 @@ async function buildLogin(req, res, next) {
   })
 }
 
-module.exports = { buildLogin }
+async function buildRegister(req, res, next) {
+    let nav = await utilities.getNav()
+    req.flash("notice", "All fields are required") 
+
+    res.render("account/register", {
+      title: "Register",
+      nav,
+    })
+  }
+  
+module.exports = { buildLogin, buildRegister }
+  
+
