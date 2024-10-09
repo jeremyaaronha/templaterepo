@@ -361,7 +361,9 @@
     display: inline;
   }
   
-
+  form span {
+    color: #212529;
+  }
   
 
 
