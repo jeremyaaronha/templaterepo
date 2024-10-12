@@ -40,7 +40,32 @@ async function getInventoryById(inventoryId) {
     return data.rows[0] // Return only the first row since it's a single vehicle
   } catch (error) {
     throw new Error("Error fetching inventory by ID")
+    
   }
 }
 
-module.exports = { getClassifications, getInventoryByClassificationId, getInventoryById }
+/* *****************************
+*   Add New Classification
+* *************************** */
+async function addNewClassification(classification_name){
+  try {
+    const sql = "INSERT INTO classification (classification_name) VALUES ($1) RETURNING *"
+    const result = await pool.query(sql, [classification_name])
+    
+    if (result.rowCount) {
+      console.log("New classification added:", result.rows[0])
+      return result.rows[0] // return the inserted row
+    } else {
+      throw new Error("Insertion failed, no row added.")
+    }
+
+    
+
+  } catch (error) {
+    console.error("Database Error:", error)
+    throw new Error("Error adding new classification: " + error.message)
+  }
+}
+
+
+module.exports = { getClassifications, getInventoryByClassificationId, getInventoryById, addNewClassification }

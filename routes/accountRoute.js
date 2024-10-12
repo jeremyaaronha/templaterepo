@@ -4,6 +4,9 @@ const router = express.Router()
 const utilities = require("../utilities")
 const accountController = require('../controllers/accountController');
 const validate = require('../utilities/account-validation')
+const invController = require('../controllers/invController')
+
+
 
 
 
@@ -26,5 +29,14 @@ router.post(
     utilities.handleErrors(accountController.processLogin) 
 )
 
+// Add Classification Route
+router.get("/classification", utilities.handleErrors(invController.buildAddClassification))
+
+// Process the new classification submission
+router.post("/classification", 
+  validate.classificationRules(),
+  validate.checkClassificationData,
+  utilities.handleErrors(invController.addClassification)
+)
 
 module.exports = router;

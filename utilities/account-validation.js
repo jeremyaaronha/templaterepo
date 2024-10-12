@@ -115,6 +115,34 @@ validate.checkLoginData = async (req, res, next) => {
     next()
   }
   
+
+// Classification name validation rules
+validate.classificationRules = () => {
+    return [
+      // classification_name must be alphanumeric with no spaces
+      body("classification_name")
+        .trim()
+        .escape()
+        .notEmpty()
+        .matches(/^[A-Za-z]+$/)
+        .withMessage("Classification name must contain only letters (no spaces or special characters)."),
+    ];
+  };
+  
+  // Check validation result
+  validate.checkClassificationData = async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      const nav = await utilities.getNav(); 
+      res.render("inventory/add-classification", {
+        title: "Add New Classification",
+        nav,
+        errors,
+      });
+      return;
+    }
+    next();
+  };
   
   module.exports = validate
   

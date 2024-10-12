@@ -73,6 +73,12 @@ app.use("/inv", inventoryRoute)
 
 app.use("/account", require("./routes/accountRoute"))
 
+
+// Error 500
+app.use("/error500", utilities.handleErrors(baseController.triggerError));
+
+
+
 // File Not Found Route - 404
 app.use(async (req, res, next) => {
   next({ status: 404, message: 'Sorry, we appear to have lost that page.' })
@@ -86,9 +92,8 @@ app.use(async (err, req, res, next) => {
   console.error(`Error in: "${req.originalUrl}": ${err.message}`)
   
   const status = err.status || 500
-  const message = status === 500 
-    ? "¡Server Error! Try later."
-    : err.message
+  const message = err.message || "¡Server Error! Try later.";
+
 
   res.status(status).render("errors/error", {
     title: status,

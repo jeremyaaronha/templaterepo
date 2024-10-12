@@ -258,7 +258,7 @@
     font-size: 1.7em;
     padding: 8px;
     cursor: pointer;
-    transition: 800ms ease all;
+    transition: 300ms ease all;
     outline: none;
     width: 250px;
     padding-top: 25px;

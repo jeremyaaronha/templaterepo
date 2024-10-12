@@ -8,9 +8,9 @@ baseController.buildHome = async function(req, res){
 }
 
 
-exports.triggerError = (req, res, next) => {
+baseController.triggerError = (req, res, next) => {
     next(new Error("This is an intentional server error!"));
 };
 
 
-module.exports = baseController
+module.exports = baseController;
