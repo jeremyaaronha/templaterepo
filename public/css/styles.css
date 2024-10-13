@@ -278,6 +278,10 @@ footer {
     text-align: center;
 }
 
+footer a {
+  color: white;
+}
+
 /* General container styling */
 form {
   background-color: #333; 
