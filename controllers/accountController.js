@@ -9,11 +9,13 @@ const bcrypt = require("bcryptjs")
 * *************************************** */
 async function buildLogin(req, res, next) {
   let nav = await utilities.getNav()
-    req.flash("notice", "Your session has expired. Please log in again.") 
-
+  
+  let errors = req.flash('errors') || [];  // Initialize errors from flash or set to empty array
+  
   res.render("account/login", {
     title: "Login",
     nav,
+    errors,  // Send errors to the view
   })
 }
 
@@ -78,11 +80,16 @@ async function registerAccount(req, res) {
     }
   }
 
-async function processLogin(req, res, next) {
-  let nav = await utilities.getNav()
-  const { account_email, account_password } = req.body
-  
-  // Aquí debería ir la lógica de autenticación (verificación de usuario, comparación de contraseñas, etc.)
+  async function processLogin(req, res, next) {
+    let nav = await utilities.getNav()
+    const { account_email, account_password } = req.body
+    
+    // After performing validation, handle errors
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      req.flash('errors', errors.array());  // Store validation errors in flash
+      return res.redirect('/account/login');  // Redirect back to the login form
+    }
   
   // Si la autenticación es exitosa:
   res.status(200).render("account/dashboard", {

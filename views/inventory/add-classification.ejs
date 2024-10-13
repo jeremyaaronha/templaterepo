@@ -1,14 +1,26 @@
 <div class="classification-page">
     <h1>Add New Classification</h1>
     
-    <!-- Display flash message if available -->
-    <% if (notice && notice.length > 0) { %>
-      <div class="flash-message">
-        <p><%= notice %></p>
-      </div>
-    <% } %>
+  <!-- Display validation errors if available -->
+  <% if (errors && errors.length > 0) { %>
+    <div class="error-messages">
+      <ul>
+        <% errors.forEach(function(error) { %>
+          <li><%= error.msg %></li>
+        <% }) %>
+      </ul>
+    </div>
+  <% } %>
+
+  <!-- Display flash message if available -->
+  <% if (notice && notice.length > 0) { %>
+    <div class="flash-message">
+      <p><%= notice[0] %></p>
+    </div>
+  <% } %>
+
   
-    <form action="/inv/add-classification" method="post" novalidate>
+    <form action="/inv/add-classification" method="post" >
       <label for="classification_name">Classification Name</label>
       <input 
         type="text" 
@@ -22,3 +34,4 @@
       <button type="submit">Add Classification</button>
     </form>
   </div>
+ 

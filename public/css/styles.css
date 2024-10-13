@@ -270,174 +270,112 @@
     color: #5DA7DC;
   }
   
-    /*  formulario de login */
-  form {
-    width: 100%;
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-  }
 
-
-  .login-page h1{
-    text-align: center;
-    font-size: 1.8em;
-    margin-bottom: 20px;
-  }
-
-  label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-    color: #212529;
-  }
-
-  input[type="email"],
-  input[type="password"],
-  input[type="text"]
-  {
-    max-width: 90%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    display: block;
-  }
-
-  input[type="submit"] {
-    width: 100%;
-    padding: 10px;
-    background-color: #5DA7DC;
-    border: none;
-    color: white;
-    font-size: 1.2em;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-
-  input[type="submit"]:hover {
-    background-color: #4a90d9;
-  }
-
-  .login-page p {
-    display: block;
-    text-align: center;
-    margin-top: 10px;
-    color: #5DA7DC;
-    text-decoration: none;
-  }
-
-  .login-page a {
-    text-decoration: underline;
-    color: #5DA7DC;
-  }
-
-  .login-page a:hover {
-    text-decoration: none;
-  }
-
-  .flash-message {
-    background-color: #ffdddd;
-    color: #a94442;
-    padding: 10px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    text-align: center;
-    text-decoration: none;
-  }
-
-  .flash-message ul {
-    list-style-type: none;
-
-  }
-  
-  .flash-message li {
-    display: inline;
-  }
-  
-  form span {
-    color: #212529;
-  }
-  
-
-
-  /*  formulario de registro */
-.register-page {
-  width: 100%;
-  max-width: 500px;
-  margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-}
-
-.register-page h1 {
-  text-align: center;
-  font-size: 1.8em;
-  margin-bottom: 20px;
-}
-
-input[type="email"],
-input[type="text"],
-input[type="password"] {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 20px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-input[type="submit"] {
-  background-color: #5DA7DC;
-  border: none;
-  color: white;
-  font-size: 1.2em;
-  padding: 10px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-input[type="submit"]:hover {
-  background-color: #4a90d9;
-}
-
-.register-page a {
-  text-align: center;
-  display: block;
-  margin-top: 10px;
-  color: #5DA7DC;
-  text-decoration: underline;
-}
-
-.register-page a:hover {
-  text-decoration: none;
-}
-
-input:focus:invalid {
-  border-color: #ff4d4d;
-}
-
-input:focus:valid {
-  border-color: #5ddc7f;
-}
-
-  
-  
-
-
-  footer {
+footer {
     background-color:rgb(40, 42, 44);
     padding: 6em;
     margin: 0;
     text-align: center;
+}
+
+/* General container styling */
+form {
+  background-color: #333; 
+  border-radius: 8px;
+  padding: 20px;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 40px;
+  margin-top: 40px;
+}
+
+/* Input fields */
+form input[type="text"],
+form input[type="number"],
+form input[type="email"],
+form input[type="url"],
+form input[type="password"],
+form textarea {
+  width: 100%;
+  max-width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+form textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+/* Label styling */
+label {
+  display: block;
+  margin-bottom: 6px;
+  margin-top: 6px;
+  font-size: 16px;
+  color: #f5f5f5;
+}
+
+/* Button styling */
+button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 24px;
+  background-color: #356ba4;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Flash message */
+.flash-message {
+  background-color: rgb(40, 42, 44);
+  color: white;
+  padding: 12px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Error message styling */
+.errors {
+  background-color: #dc3545;
+  color: white;
+  padding: 12px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.login-page span, .login-page p {
+  display: block;
+  text-align: center;
+  margin-top: 8px;
+}
+
+.login-page p a {
+color: #5DA7DC;
+}
+
+.login-page p a:hover {
+  color: white;
   }
+
+  .flash-message ul {
+    list-style-type: none;
+  }
+
 
   @media (min-width: 768px) {
 

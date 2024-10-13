@@ -22,9 +22,10 @@
       <input type="email" name="account_email"  id="accountEmail" required value="<%= locals.account_email %>">
       
       <label for="password">Password</label>
-      <span>Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter and 1 special character</span> 
       <input type="password" id="accountPassword" name="account_password" placeholder="Password" required
         pattern="(?=.*\d)(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}">
+        <span>Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter and 1 special character</span> 
+
 
 
       <button type="submit">Register</button>

@@ -1,11 +1,11 @@
   <h1>Inventory Management</h1>
   
   <!-- Display flash message -->
-  <div class="flash-message">
-    <% if (messages().length > 0) { %>
-      <%- messages() %>
-    <% } %>
-  </div>
+  <% if (notice && notice.length > 0) { %>
+    <div class="flash-message success">
+      <p><%= notice[0] %></p>
+    </div>
+  <% } %>
 
   <!-- links to the add classification and add inventory processes -->
   <ul>

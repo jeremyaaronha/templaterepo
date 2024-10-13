@@ -99,21 +99,25 @@ validate.loginRules = () => {
   /* ******************************
  * Check login data and return errors or continue to login
  * ***************************** */
-validate.checkLoginData = async (req, res, next) => {
-    const { account_email } = req.body
-    let errors = validationResult(req)
+  validate.checkLoginData = async (req, res, next) => {
+    let errors = validationResult(req);
+    let nav = await utilities.getNav(); 
     if (!errors.isEmpty()) {
-      let nav = await utilities.getNav()
       res.render("account/login", {
-        errors,
         title: "Login",
         nav,
-        account_email,
-      })
-      return
+        errors: errors.array(),
+      });
+    } else {
+      res.render("account/login", {
+        title: "Login",
+        nav,
+        errors: [] 
+      });
     }
-    next()
-  }
+};
+
+
   
 
 // Classification name validation rules
@@ -133,16 +137,91 @@ validate.classificationRules = () => {
   validate.checkClassificationData = async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      const nav = await utilities.getNav(); 
+      const nav = await utilities.getNav();
+      const notice = req.flash('notice'); // Agregar el mensaje flash
       res.render("inventory/add-classification", {
         title: "Add New Classification",
         nav,
-        errors,
+        errors: errors.array(),
+        notice, // Pasar el mensaje flash a la vista
       });
       return;
     }
     next();
   };
+  
+  
+
+
+// Inventory validation rules
+validate.inventoryRules = () => {
+    return [
+      body("inv_make")
+        .trim()
+        .notEmpty()
+        .withMessage("Make is required.")
+        .matches(/^[A-Za-z]+$/)
+        .withMessage("Make must contain only letters."),
+        
+      body("inv_model")
+        .trim()
+        .notEmpty()
+        .withMessage("Model is required.")
+        .matches(/^[A-Za-z0-9]+$/)
+        .withMessage("Model can contain only letters and numbers."),
+        
+      body("inv_year")
+        .trim()
+        .isNumeric()
+        .withMessage("Year must be numeric.")
+        .isInt({ min: 1886, max: new Date().getFullYear() })
+        .withMessage("Enter a valid year."),
+        
+      body("inv_price")
+        .trim()
+        .isDecimal()
+        .withMessage("Price must be a valid decimal."),
+        
+      body("inv_miles")
+        .trim()
+        .isNumeric()
+        .withMessage("Mileage must be numeric.")
+        .isInt({ min: 0 })
+        .withMessage("Mileage must be a positive number."),
+        
+      body("inv_color")
+        .trim()
+        .notEmpty()
+        .withMessage("Color is required.")
+        .matches(/^[A-Za-z]+$/)
+        .withMessage("Color must contain only letters."),
+        
+      body("classification_id")
+        .notEmpty()
+        .withMessage("Classification is required."),
+    ];
+};
+
+  
+  // Check Inventory Data Validation
+  validate.checkInventoryData = async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      let nav = await utilities.getNav();  // Asegúrate de esperar la resolución de la promesa
+      let classificationList = await utilities.buildClassificationList(req.body.classification_id);
+      return res.status(400).render("inventory/add-inventory", {
+        title: "Add New Inventory",
+        nav,
+        classificationList,
+        errors: errors.array(),
+        ...req.body,
+      });
+    }
+    next();
+  };
+  
+  
+
   
   module.exports = validate
   
