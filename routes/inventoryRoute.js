@@ -36,4 +36,7 @@ router.post("/add-inventory",
   utilities.handleErrors(invController.addInventory) // Controlador maneja la lógica
 );
 
+
+router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
+
 module.exports = router
