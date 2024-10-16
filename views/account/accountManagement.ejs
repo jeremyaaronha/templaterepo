@@ -1,0 +1,15 @@
+<h1>You're logged in!</h1>
+
+<!-- Mostrar mensajes flash -->
+<% if (typeof flash !== 'undefined') { %>
+  <div class="flash-message">
+    <p><%= flash.message %></p>
+  </div>
+<% } %>
+
+<!-- Mostrar errores -->
+<% if (typeof errors !== 'undefined') { %>
+  <div class="error-message">
+    <p><%= errors.message %></p>
+  </div>
+<% } %>

@@ -2,6 +2,10 @@
 const utilities = require("../utilities/index")
 const accountModel = require("../models/account-model")
 const bcrypt = require("bcryptjs")
+const jwt = require("jsonwebtoken")
+require("dotenv").config()
+const getAccountByEmail = require('../models/account-model') 
+
 
 
 /* ****************************************
@@ -9,12 +13,13 @@ const bcrypt = require("bcryptjs")
 * *************************************** */
 async function buildLogin(req, res, next) {
   let nav = await utilities.getNav()
-  
+  let notice = req.flash('notice') || [];  
   let errors = req.flash('errors') || [];  // Initialize errors from flash or set to empty array
   
   res.render("account/login", {
     title: "Login",
     nav,
+    notice,
     errors,  // Send errors to the view
   })
 }
@@ -67,10 +72,8 @@ async function registerAccount(req, res) {
         "notice",
         `Congratulations, you\'re registered ${account_firstname}. Please log in.`
       )
-      res.status(201).render("account/login", {
-        title: "Login",
-        nav,
-      })
+      return res.redirect("/account/login"); // Redirigir a login con mensaje flash
+
     } else {
       req.flash("notice", "Sorry, the registration failed.")
       res.status(501).render("account/register", {
@@ -99,7 +102,66 @@ async function registerAccount(req, res) {
   })
 }
 
+
+/* ****************************************
+ *  Process login request
+ * ************************************ */
+async function accountLogin(req, res) {
+  let nav = await utilities.getNav()
+  const { account_email, account_password } = req.body
+  const accountData = await accountModel.getAccountByEmail(account_email)
+  if (!accountData) {
+   req.flash("notice", "Please check your credentials and try again.")
+   res.status(400).render("account/login", {
+    title: "Login",
+    nav,
+    notice: req.flash('notice') || '',
+    errors: null,
+    account_email,
+   })
+  return
+  }
+  try {
+   if (await bcrypt.compare(account_password, accountData.account_password)) {
+   delete accountData.account_password
+   const accessToken = jwt.sign(accountData, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600 })
+   if(process.env.NODE_ENV === 'development') {
+     res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 })
+     } else {
+       res.cookie("jwt", accessToken, { httpOnly: true, secure: true, maxAge: 3600 * 1000 })
+     }
+   return res.redirect("/account")
+   }
+  } catch (error) {
+   return new Error('Access Forbidden')
+  }
+ }
+
+
+async function renderAccountManagement(req, res) {
+  try {
+    let nav = await utilities.getNav();  
+    const accountData = req.session.account || req.user;
+
+    res.render('account/accountManagement', {
+      title: 'Account Management',
+      nav,
+      account: accountData,
+      notice: req.flash('notice') || '', 
+      errors: req.flash('errors') || [],  
+    });
+  } catch (error) {
+    console.error('Error rendering account management:', error);
+    res.status(500).render('account/accountManagement', {
+      title: 'Account Management',
+      nav,
+      account: null,
+      notice: null,
+      errors: [{ msg: 'There was an issue loading the account management page.' }],
+    });
+  }
+}
   
-module.exports = { buildLogin, buildRegister, registerAccount, processLogin }
+module.exports = { buildLogin, buildRegister, registerAccount, processLogin, accountLogin, renderAccountManagement }
   
 

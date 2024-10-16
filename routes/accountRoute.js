@@ -26,7 +26,7 @@ router.post(
     "/login",
     validate.loginRules(), 
     validate.checkLoginData, 
-    utilities.handleErrors(accountController.processLogin) 
+    utilities.handleErrors(accountController.accountLogin) 
 )
 
 // Add Classification Route
@@ -38,5 +38,8 @@ router.post("/classification",
   validate.checkClassificationData,
   utilities.handleErrors(invController.addClassification)
 )
+
+router.get('/', accountController.renderAccountManagement)
+
 
 module.exports = router;
