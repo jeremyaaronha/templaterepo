@@ -102,20 +102,18 @@ validate.loginRules = () => {
     let errors = validationResult(req);
     let nav = await utilities.getNav(); 
     if (!errors.isEmpty()) {
+      req.flash("notice", "There were validation errors. Please check the form.");  
       res.render("account/login", {
         title: "Login",
         nav,
         errors: errors.array(),
+        notice: req.flash('notice'), 
       });
-    } else {
-      res.render("account/login", {
-        title: "Login",
-        nav,
-        errors: [] 
-      });
+      return;  
     }
-};
-
+    next(); 
+  };
+  
 
   
 

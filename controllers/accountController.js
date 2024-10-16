@@ -13,7 +13,7 @@ const getAccountByEmail = require('../models/account-model')
 * *************************************** */
 async function buildLogin(req, res, next) {
   let nav = await utilities.getNav()
-  let notice = req.flash('notice') || [];  
+  let notice = req.flash('notice') || '';  
   let errors = req.flash('errors') || [];  // Initialize errors from flash or set to empty array
   
   res.render("account/login", {
@@ -115,7 +115,6 @@ async function accountLogin(req, res) {
    res.status(400).render("account/login", {
     title: "Login",
     nav,
-    notice: req.flash('notice') || '',
     errors: null,
     account_email,
    })
@@ -130,12 +129,13 @@ async function accountLogin(req, res) {
      } else {
        res.cookie("jwt", accessToken, { httpOnly: true, secure: true, maxAge: 3600 * 1000 })
      }
-   return res.redirect("/account")
+   return res.redirect("/account/")
    }
   } catch (error) {
    return new Error('Access Forbidden')
   }
  }
+
 
 
 async function renderAccountManagement(req, res) {

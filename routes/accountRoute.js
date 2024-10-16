@@ -39,7 +39,7 @@ router.post("/classification",
   utilities.handleErrors(invController.addClassification)
 )
 
-router.get('/', accountController.renderAccountManagement)
+router.get('/', utilities.checkLogin, utilities.handleErrors(accountController.renderAccountManagement))
 
 
 module.exports = router;
