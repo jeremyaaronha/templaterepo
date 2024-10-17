@@ -36,7 +36,19 @@ router.post("/add-inventory",
   utilities.handleErrors(invController.addInventory) // Controlador maneja la lógica
 );
 
+// Update Inventory Route
+router.post("/update", 
+  validate.inventoryRules(),  // Reglas de validación  para los actualizados
+  validate.checkUpdateData,  // Middleware para manejar errores en la actualización
+  utilities.handleErrors(invController.updateInventory) // Controlador para actualizar el inventario
+);
+
 
 router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
+
+router.get("/edit/:inv_id", utilities.handleErrors(invController.editInventoryView));
+
+router.post("/update", utilities.handleErrors(invController.updateInventory));
+
 
 module.exports = router

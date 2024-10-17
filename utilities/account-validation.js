@@ -216,6 +216,26 @@ validate.inventoryRules = () => {
     }
     next();
   };
+
+
+    // Errors will be redirected back to edit view
+    validate.checkUpdateData = async (req, res, next) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+          let nav = await utilities.getNav();  
+          let classificationList = await utilities.buildClassificationList(req.body.classification_id);
+          
+          return res.status(400).render("inventory/edit-inventory", {
+            title: "Edit " + req.body.inv_make + " " + req.body.inv_model,
+            nav,
+            classificationList,
+            errors: errors.array(),
+            inv_id: req.body.inv_id,
+            ...req.body,
+          });
+        }
+        next();
+      };
   
   
 
