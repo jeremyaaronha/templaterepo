@@ -157,14 +157,14 @@ validate.inventoryRules = () => {
         .trim()
         .notEmpty()
         .withMessage("Make is required.")
-        .matches(/^[A-Za-z]+$/)
+        .matches(/^[A-Za-z0-9\s]+$/)
         .withMessage("Make must contain only letters."),
         
       body("inv_model")
         .trim()
         .notEmpty()
         .withMessage("Model is required.")
-        .matches(/^[A-Za-z0-9]+$/)
+        .matches(/^[A-Za-z0-9\s]+$/)
         .withMessage("Model can contain only letters and numbers."),
         
       body("inv_year")
@@ -224,7 +224,7 @@ validate.inventoryRules = () => {
         if (!errors.isEmpty()) {
           let nav = await utilities.getNav();  
           let classificationList = await utilities.buildClassificationList(req.body.classification_id);
-          
+
           return res.status(400).render("inventory/edit-inventory", {
             title: "Edit " + req.body.inv_make + " " + req.body.inv_model,
             nav,
