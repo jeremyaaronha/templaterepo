@@ -12,6 +12,14 @@ const getAccountByEmail = require('../models/account-model')
 *  Deliver login view
 * *************************************** */
 async function buildLogin(req, res, next) {
+  const token = req.cookies.jwt;  // revisa si hay un token de sesión
+
+  // si ya está autenticado, redirigir al inicio o a su cuenta
+  if (token) {
+    const userData = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+    return res.redirect("/account");
+  }
+
   let nav = await utilities.getNav()
   let notice = req.flash('notice') || '';  
   let errors = req.flash('errors') || [];  // Initialize errors from flash or set to empty array
@@ -404,8 +412,37 @@ async function logout(req, res) {
   }
 }
 
+async function checkAdminOrEmployee(req, res, next) {
+  const token = req.cookies.jwt; // Verificar si hay un token JWT en las cookies
 
+  // Si no hay token, redirigir al login
+  if (!token) {
+    req.flash("notice", "You need to log in to access this page.");
+    return res.redirect("/account/login");
+  }
 
-module.exports = { buildLogin, buildRegister, registerAccount, processLogin, accountLogin, renderAccountManagement, buildUpdateAccountView, updateAccount, authenticateJWT, updatePassword, updateAccountPassword, logout }
+  try {
+    // Verificar el token y obtener los datos del usuario
+    const userData = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+
+    // si el usuario está logueado pero no tiene los permisos adecuados
+    if (userData.account_type !== 'Admin' && userData.account_type !== 'Employee') {
+      req.flash("notice", "You do not have permission to access this page.");
+      return res.status(403).render("account/unauthorized", {
+        title: "Access Denied",
+        nav: await utilities.getNav(),  
+        account: userData,  
+      });
+    }
+
+    next();
+  } catch (err) {
+    // Si el token es inválido o expirado, redirigir al login
+    req.flash("notice", "Invalid session. Please log in again.");
+    return res.redirect("/account/login");
+  }
+}
+
+module.exports = { buildLogin, buildRegister, registerAccount, processLogin, accountLogin, renderAccountManagement, buildUpdateAccountView, updateAccount, authenticateJWT, updatePassword, updateAccountPassword, logout, checkAdminOrEmployee }
   
 
