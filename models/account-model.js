@@ -71,7 +71,7 @@ async function updateAccount(account_id, account_firstname, account_lastname, ac
       RETURNING account_id, account_firstname, account_lastname, account_email, account_type;
     `;
     const result = await pool.query(sql, [account_firstname, account_lastname, account_email, account_id]);
-    return result.rows[0];  // Asegúrate de que el account_type esté presente en el resultado
+    return result.rows[0];  
   } catch (error) {
     console.error("Error updating account:", error);
     throw new Error("Error updating account");

@@ -135,12 +135,12 @@ validate.classificationRules = () => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       const nav = await utilities.getNav();
-      const notice = req.flash('notice'); // Agregar el mensaje flash
+      const notice = req.flash('notice');
       res.render("inventory/add-classification", {
         title: "Add New Classification",
         nav,
         errors: errors.array(),
-        notice, // Pasar el mensaje flash a la vista
+        notice, 
       });
       return;
     }
@@ -254,7 +254,7 @@ validate.updateAccountRules = () => {
         title: "Update Account Information",
         nav,
         errors: errors.array(),
-        accountData: req.body, // Send back the form data
+        accountData: req.body, 
       });
     }
     next();
