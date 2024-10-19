@@ -147,8 +147,6 @@ validate.classificationRules = () => {
     next();
   };
   
-  
-
 
 // Inventory validation rules
 validate.inventoryRules = () => {
@@ -218,25 +216,49 @@ validate.inventoryRules = () => {
   };
 
 
-    // Errors will be redirected back to edit view
-    validate.checkUpdateData = async (req, res, next) => {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-          let nav = await utilities.getNav();  
-          let classificationList = await utilities.buildClassificationList(req.body.classification_id);
+// Errors will be redirected back to edit view
+validate.checkUpdateData = async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        let nav = await utilities.getNav();  
+        let classificationList = await utilities.buildClassificationList(req.body.classification_id);
 
-          return res.status(400).render("inventory/edit-inventory", {
-            title: "Edit " + req.body.inv_make + " " + req.body.inv_model,
-            nav,
-            classificationList,
-            errors: errors.array(),
-            inv_id: req.body.inv_id,
-            ...req.body,
-          });
-        }
-        next();
-      };
+        return res.status(400).render("inventory/edit-inventory", {
+        title: "Edit " + req.body.inv_make + " " + req.body.inv_model,
+        nav,
+        classificationList,
+        errors: errors.array(),
+        inv_id: req.body.inv_id,
+        ...req.body,
+        });
+    }
+    next();
+    };
   
+
+// Add validation rules for updating the account
+validate.updateAccountRules = () => {
+    return [
+      body("account_firstname").isAlpha().withMessage("First name must contain only letters."),
+      body("account_lastname").isAlpha().withMessage("Last name must contain only letters."),
+      body("account_email").isEmail().withMessage("Please provide a valid email.")
+    ];
+  };
+  
+  // Check validation results for updating the account
+  validate.checkUpdateAccountData = async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      let nav = await utilities.getNav();
+      return res.status(400).render("account/update-account", {
+        title: "Update Account Information",
+        nav,
+        errors: errors.array(),
+        accountData: req.body, // Send back the form data
+      });
+    }
+    next();
+  };
   
 
   

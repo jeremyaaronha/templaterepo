@@ -344,12 +344,13 @@ button:hover {
 
 /* Flash message */
 .flash-message {
-  background-color: rgb(40, 42, 44);
+  background-color: #40dc35;
   color: white;
   padding: 12px;
   border-radius: 4px;
   margin-bottom: 20px;
   text-align: center;
+  margin: 10px;
 }
 
 /* Error message styling */

@@ -7,9 +7,6 @@ const validate = require('../utilities/account-validation')
 const invController = require('../controllers/invController')
 
 
-
-
-
 router.get('/login', utilities.handleErrors(accountController.buildLogin));
 router.get("/register", utilities.handleErrors(accountController.buildRegister));
 
@@ -40,6 +37,23 @@ router.post("/classification",
 )
 
 router.get('/', utilities.checkLogin, utilities.handleErrors(accountController.renderAccountManagement))
+
+
+// Route to display account update form
+router.get("/update/:account_id", utilities.handleErrors(accountController.buildUpdateAccountView));
+
+// Route to process account update
+router.post("/update", 
+  validate.updateAccountRules(),  
+  validate.checkUpdateAccountData, 
+  utilities.handleErrors(accountController.updateAccount) 
+);
+
+// Ruta para cambiar la contraseña
+router.post('/change-password', utilities.handleErrors(accountController.updatePassword));
+
+// Ruta para el logout
+router.get("/logout", accountController.logout);
 
 
 module.exports = router;
