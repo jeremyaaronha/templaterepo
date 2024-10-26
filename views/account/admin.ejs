@@ -1,0 +1,21 @@
+<h2>My Account</h2>
+
+<h3>My Reviews</h3>
+
+<% if (myReviews && myReviews.length > 0) { %>
+  <ul>
+    <% myReviews.forEach(review => { %>
+      <li><strong><%= review.inv_make %> <%= review.inv_model %></strong> on <%= review.review_date %>:
+        <p><%= review.review_text %></p>
+        <a href="/reviews/edit/<%= review.review_id %>">Edit</a> | 
+        <form action="/reviews/delete" method="post" style="display: inline;">
+          <input type="hidden" name="review_id" value="<%= review.review_id %>">
+          <button type="submit">Delete</button>
+        </form>
+      </li>
+    <% }) %>
+  </ul>
+<% } else { %>
+  <p>You haven't written any reviews yet.</p>
+<% } %>
+

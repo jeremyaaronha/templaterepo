@@ -1,5 +1,6 @@
 const invModel = require("../models/inventory-model")
 const utilities = require("../utilities/")
+const reviewModel = require("../models/review-model");
 
 const invCont = {}
 
@@ -33,11 +34,20 @@ invCont.buildByInventoryId = async function (req, res, next) {
     const inventoryId = req.params.inventoryId;
     const vehicleData = await invModel.getInventoryById(inventoryId);
     const viewHTML = await utilities.buildVehicleDetail(vehicleData);
+    const reviews = await reviewModel.getReviewsByInventoryId(inventoryId);  
+
     let nav = await utilities.getNav(); 
+
+    // Fetch reviews for the vehicle
+
     res.render("./inventory/detail", {
       title: `${vehicleData.inv_make} ${vehicleData.inv_model}`,
       nav, 
-      viewHTML 
+      viewHTML,
+      inventory: vehicleData,  // Pass the inventory data
+      reviews,
+      user: req.session.user || null  ,
+      messages: req.flash()
     });
 }
 

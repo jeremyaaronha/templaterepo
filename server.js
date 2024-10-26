@@ -19,6 +19,8 @@ const pool = require('./database/')
 const accountRoute = require('./routes/accountRoute')
 const bodyParser = require("body-parser")
 const cookieParser = require("cookie-parser")
+const reviewRoute = require('./routes/reviewRoute');
+const checkAuth = require('./utilities/checkAuth');
 
 
 
@@ -78,10 +80,13 @@ app.use("/inv", inventoryRoute)
 
 app.use("/account", require("./routes/accountRoute"))
 
+app.use('/reviews', reviewRoute);
+
+app.use(checkAuth);
+
 
 // Error 500
 app.use("/error500", utilities.handleErrors(baseController.triggerError));
-
 
 
 // File Not Found Route - 404

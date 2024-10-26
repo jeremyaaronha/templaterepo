@@ -5,6 +5,7 @@ const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 require("dotenv").config()
 const getAccountByEmail = require('../models/account-model') 
+const reviewModel = require('../models/review-model');
 
 
 
@@ -137,6 +138,7 @@ async function accountLogin(req, res) {
         { httpOnly: true, secure: true, maxAge: 3600 * 1000 };
       
       res.cookie("jwt", accessToken, cookieOptions);
+      req.session.user = accountData;  // Guarda el usuario en la sesión
       return res.redirect("/account/");
     } else {
       req.flash("notice", "Incorrect password. Please try again.");
@@ -403,6 +405,8 @@ async function logout(req, res) {
   try {
     // Limpiar la cookie que contiene el JWT
     res.clearCookie("jwt");
+    res.clearCookie("sessionId");
+
 
     req.flash("notice", "You have successfully logged out.");
     return res.redirect("/account/login");
@@ -443,6 +447,18 @@ async function checkAdminOrEmployee(req, res, next) {
   }
 }
 
-module.exports = { buildLogin, buildRegister, registerAccount, processLogin, accountLogin, renderAccountManagement, buildUpdateAccountView, updateAccount, authenticateJWT, updatePassword, updateAccountPassword, logout, checkAdminOrEmployee }
+// Fetch user's reviews
+async function getUserReviews(req, res, next) {
+  try {
+    const accountId = res.locals.account.account_id;
+    const reviews = await reviewModel.getReviewsByAccountId(accountId);
+    res.render('account/admin', { reviews, nav });
+  } catch (error) {
+    req.flash('notice', 'Error fetching your reviews.');
+    res.redirect('/account');
+  }
+}
+
+module.exports = { buildLogin, buildRegister, registerAccount, processLogin, accountLogin, renderAccountManagement, buildUpdateAccountView, updateAccount, authenticateJWT, updatePassword, updateAccountPassword, logout, checkAdminOrEmployee, getUserReviews }
   
 
