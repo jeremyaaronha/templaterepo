@@ -55,5 +55,7 @@ router.post('/change-password', utilities.handleErrors(accountController.updateP
 // Ruta para el logout
 router.get("/logout", accountController.logout);
 
+router.get("/admin", utilities.checkLogin, utilities.handleErrors(accountController.getAccountAdmin));
+
 
 module.exports = router;

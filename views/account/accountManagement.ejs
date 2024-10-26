@@ -9,6 +9,8 @@
 
 <!-- Link to update account information visible to all account types -->
 <p><a href="/account/update/<%= account.account_id %>">Update Account Information</a></p>
+<br>
+<a href="/account/admin">Manage My Reviews</a> 
 
 <% if (account.account_type === 'Employee' || account.account_type === 'Admin') { %>
     <!-- Inventory Management Section only for Employee and Admin -->

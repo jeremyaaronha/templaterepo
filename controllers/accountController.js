@@ -24,12 +24,15 @@ async function buildLogin(req, res, next) {
   let nav = await utilities.getNav()
   let notice = req.flash('notice') || '';  
   let errors = req.flash('errors') || [];  // Initialize errors from flash or set to empty array
-  
+  const redirectUrl = req.query.redirect || "/account";
+
   res.render("account/login", {
     title: "Login",
     nav,
     notice,
     errors,  // Send errors to the view
+    redirect: redirectUrl, // Pasar redirect a la vista
+
   })
 }
 
@@ -41,6 +44,7 @@ async function buildRegister(req, res, next) {
       title: "Register",
       nav,
       errors: null,
+      
     })
   }
 
@@ -115,6 +119,8 @@ async function accountLogin(req, res) {
   let nav = await utilities.getNav();
   const { account_email, account_password } = req.body;
   const accountData = await accountModel.getAccountByEmail(account_email);
+  const redirectUrl = req.body.redirect || req.query.redirect || "/account"; 
+
   
   if (!accountData) {
     req.flash("notice", "Please check your credentials and try again.");
@@ -123,6 +129,8 @@ async function accountLogin(req, res) {
       nav,
       errors: null,
       account_email,
+      redirect: redirectUrl, 
+
     });
   }
 
@@ -139,10 +147,10 @@ async function accountLogin(req, res) {
       
       res.cookie("jwt", accessToken, cookieOptions);
       req.session.user = accountData;  // Guarda el usuario en la sesión
-      return res.redirect("/account/");
+      return res.redirect(redirectUrl);
     } else {
       req.flash("notice", "Incorrect password. Please try again.");
-      return res.redirect("/account/login");
+      return res.redirect(`/account/login?redirect=${encodeURIComponent(redirectUrl)}`);
     }
   } catch (error) {
     console.error("Login error:", error);
@@ -459,6 +467,20 @@ async function getUserReviews(req, res, next) {
   }
 }
 
-module.exports = { buildLogin, buildRegister, registerAccount, processLogin, accountLogin, renderAccountManagement, buildUpdateAccountView, updateAccount, authenticateJWT, updatePassword, updateAccountPassword, logout, checkAdminOrEmployee, getUserReviews }
+async function getAccountAdmin(req, res) {
+  let nav = await utilities.getNav();
+  const accountId = req.session.user.account_id;
+  const myReviews = await reviewModel.getReviewsByAccountId(accountId); 
+
+  res.render("account/admin", {
+      title: "Account Management",
+      nav,
+      myReviews, // Pasa las reseñas a la vista
+      notice: req.flash("notice"),
+  });
+}
+
+
+module.exports = { buildLogin, buildRegister, registerAccount, processLogin, accountLogin, renderAccountManagement, buildUpdateAccountView, updateAccount, authenticateJWT, updatePassword, updateAccountPassword, logout, checkAdminOrEmployee, getUserReviews, getAccountAdmin }
   
 

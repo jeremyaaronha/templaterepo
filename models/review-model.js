@@ -81,4 +81,22 @@ exports.updateReview = async (review_id, review_text, account_id) => {
       throw new Error('Failed to delete review: ' + error.message);
     }
   };
+
+  exports.getReviewsByAccountId = async (account_id) => {
+    const sql = `
+        SELECT r.review_id, r.review_text, r.review_date, i.inv_make, i.inv_model
+        FROM reviews r
+        JOIN inventory i ON r.inv_id = i.inv_id
+        WHERE r.account_id = $1
+        ORDER BY r.review_date DESC`;
+    const values = [account_id];
+  
+    try {
+      const { rows } = await db.query(sql, values);
+      return rows;
+    } catch (error) {
+      throw new Error('Failed to retrieve reviews: ' + error.message);
+    }
+};
+
   
