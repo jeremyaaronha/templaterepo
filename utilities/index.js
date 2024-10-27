@@ -85,8 +85,8 @@ Util.buildVehicleDetail = function (vehicle) {
       <img src="${vehicle.inv_image}" alt="${vehicle.inv_make} ${vehicle.inv_model}">
       <div class="info-section">
         <h1>${vehicle.inv_make} ${vehicle.inv_model}</h1>
-        <p id="prominent">Year: ${vehicle.inv_year}</p>
-        <p id="prominent">Price: $${new Intl.NumberFormat('en-US').format(vehicle.inv_price)}</p>
+        <p class="prominent">Year: ${vehicle.inv_year}</p>
+        <p class="prominent">Price: $${new Intl.NumberFormat('en-US').format(vehicle.inv_price)}</p>
         <p>Mileage: ${new Intl.NumberFormat('en-US').format(vehicle.inv_miles)} miles</p>
         <p>Color: ${vehicle.inv_color}</p> 
         <p id="description">${vehicle.inv_description}</p>

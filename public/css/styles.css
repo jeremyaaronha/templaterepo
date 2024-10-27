@@ -226,9 +226,7 @@
     display: block;
   }
 
-  #prominent {
-    font-size: 22px;
-    font-weight: 500;
+  .prominent  {
     color: #5DA7DC;
   }
 
@@ -600,9 +598,7 @@ color: #5DA7DC;
       font-size: 36px;
     }
 
-    #prominent {
-      font-size: 32px;
-    }
+
 
     .vehicle-detail p {
       font-size: 20px;
