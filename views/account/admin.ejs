@@ -8,11 +8,9 @@
       <li><strong><%= review.inv_make %> <%= review.inv_model %></strong> on <%= review.review_date %>:
         <p><%= review.review_text %></p>
         <a href="/reviews/edit/<%= review.review_id %>">Edit</a> | 
-        <form action="/reviews/delete" method="post" style="display: inline;">
+        <form class="delete-form" action="/reviews/delete" method="post" style="display: inline;">
           <input type="hidden" name="review_id" value="<%= review.review_id %>">
-          <input type="hidden" name="inv_id" value="<%= inventory.inv_id %>">
-
-          <button type="submit">Delete</button>
+          <button class="delete-button" type="submit">Delete</button>
         </form>
       </li>
     <% }) %>

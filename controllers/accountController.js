@@ -460,6 +460,7 @@ async function checkAdminOrEmployee(req, res, next) {
 async function getUserReviews(req, res, next) {
   try {
     const accountId = res.locals.account.account_id;
+    let nav = await utilities.getNav();
     const reviews = await reviewModel.getReviewsByAccountId(accountId);
     res.render('account/admin', { reviews, nav });
   } catch (error) {

@@ -19,10 +19,10 @@
         <!-- Edit and Delete Links -->
         <% if (typeof user !== 'undefined' && user && user.account_id === review.account_id) { %>
             <a href="/reviews/edit/<%= review.review_id %>?inv_id=<%= inventory.inv_id %>">Edit</a>
-            <form action="/reviews/delete" method="POST">
-              <input type="hidden" name="review_id" value="<%= review.review_id %>">
+            <form action="/reviews/delete" method="POST" class="delete-form">
+                <input type="hidden" name="review_id" value="<%= review.review_id %>">
               <input type="hidden" name="inv_id" value="<%= inventory.inv_id %>">
-              <button type="submit">Delete</button>
+              <button type="submit" class="delete-button">Delete</button>
             </form>
         <% } %>
 
