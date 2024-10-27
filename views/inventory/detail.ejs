@@ -15,6 +15,7 @@
 
         <p><%= review.review_text %></p>
 
+
         <!-- Edit and Delete Links -->
         <% if (typeof user !== 'undefined' && user && user.account_id === review.account_id) { %>
             <a href="/reviews/edit/<%= review.review_id %>?inv_id=<%= inventory.inv_id %>">Edit</a>

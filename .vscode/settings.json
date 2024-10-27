@@ -9,10 +9,11 @@
             "previewLimit": 50,
             "server": "localhost",
             "port": 5432,
-            "askForPassword": true,
             "driver": "PostgreSQL",
             "name": "render",
-            "connectString": "postgresql://newcse340database:A0o1ParrInLBUQnXrb8UjXcj5cbjtYJh@dpg-crr200ij1k6c73e88k00-a.virginia-postgres.render.com/newcse340database"
+            "password": "QrxXWtBeQ6XHO8uH6kweMT7Fvqe0tsnk",
+            "database": "lastcse340database",
+            "username": "lastcse340database"
         }
     ]
 }

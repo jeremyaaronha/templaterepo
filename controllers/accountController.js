@@ -22,7 +22,7 @@ async function buildLogin(req, res, next) {
   }
 
   let nav = await utilities.getNav()
-  let notice = req.flash('notice') || '';  
+  let notice = req.flash('notice') || [];  
   let errors = req.flash('errors') || [];  // Initialize errors from flash or set to empty array
   const redirectUrl = req.query.redirect || "/account";
 
@@ -31,7 +31,7 @@ async function buildLogin(req, res, next) {
     nav,
     notice,
     errors,  // Send errors to the view
-    redirect: redirectUrl, // Pasar redirect a la vista
+    redirect: redirectUrl || "/account", // Pasar redirect a la vista
 
   })
 }
@@ -127,6 +127,7 @@ async function accountLogin(req, res) {
     return res.status(400).render("account/login", {
       title: "Login",
       nav,
+      notice: req.flash("notice"), // Pass the flash message
       errors: null,
       account_email,
       redirect: redirectUrl, 

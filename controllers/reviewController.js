@@ -53,6 +53,7 @@ async function deleteReview(req, res, next) {
     const { review_id, inv_id } = req.body;
     const account_id = req.session.user.account_id;
 
+
     try {
         const result = await reviewModel.deleteReview(review_id, account_id);
 

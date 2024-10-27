@@ -11,7 +11,7 @@ WHERE account_id = 1;
 
 -- 3 Delete the Tony Stark record from the database.--
 DELETE FROM account
-WHERE account_id = 1;
+WHERE account_id = 1;ble
 
 -- 4 -Modify the "GM Hummer" record to read "a huge interior" rather than "small interiors" using a single query-
 UPDATE inventory

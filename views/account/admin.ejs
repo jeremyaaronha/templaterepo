@@ -10,6 +10,8 @@
         <a href="/reviews/edit/<%= review.review_id %>">Edit</a> | 
         <form action="/reviews/delete" method="post" style="display: inline;">
           <input type="hidden" name="review_id" value="<%= review.review_id %>">
+          <input type="hidden" name="inv_id" value="<%= inventory.inv_id %>">
+
           <button type="submit">Delete</button>
         </form>
       </li>
