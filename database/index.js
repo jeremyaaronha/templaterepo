@@ -33,7 +33,7 @@ module.exports = {
       return res // Devuelve el resultado de la consulta
     } catch (error) {
       console.error("error in query", { text }) // Muestra el error si algo falla
-      throw error // Lanza el error para que puedas manejarlo
+      throw error // Lanza el error para que pueda manejarlo
     }
   },
 }

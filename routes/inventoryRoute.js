@@ -44,10 +44,8 @@ router.post("/update", checkAdminOrEmployee,
   utilities.handleErrors(invController.updateInventory) 
 );
 
-// Route to display delete confirmation view
 router.get("/delete/:inv_id", checkAdminOrEmployee, utilities.handleErrors(invController.buildDeleteConfirmationView));
 
-// Route to process the delete inventory request
 router.post("/delete", checkAdminOrEmployee, utilities.handleErrors(invController.deleteInventory));
 
 // Ruta para obtener datos de inventario para público

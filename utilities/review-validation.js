@@ -1,6 +1,5 @@
 const { body, validationResult } = require('express-validator');
 
-// Validation rules for reviews
 const reviewRules = () => {
   return [
     body('review_text')
@@ -10,7 +9,6 @@ const reviewRules = () => {
   ];
 };
 
-// Middleware to check review data
 const checkReviewData = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {

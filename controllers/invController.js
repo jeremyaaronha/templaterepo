@@ -44,7 +44,7 @@ invCont.buildByInventoryId = async function (req, res, next) {
       title: `${vehicleData.inv_make} ${vehicleData.inv_model}`,
       nav, 
       viewHTML,
-      inventory: vehicleData,  // Pass the inventory data
+      inventory: vehicleData, 
       reviews,
       user: req.session.user || null  ,
       messages: req.flash()
@@ -59,14 +59,14 @@ invCont.buildManagementView = async function(req, res, next) {
   const classificationList = await utilities.buildClassificationList()
 
 
-  let notice = req.flash("notice"); // Recoge el mensaje flash
+  let notice = req.flash("notice"); 
 
   res.render("inventory/management", {
     title: "Inventory Management",
     nav,
     classificationList,
     errors: null,
-    notice  // Pasa el mensaje a la vista
+    notice  
   });
 };
 
@@ -82,7 +82,7 @@ invCont.buildAddClassification = async function(req, res, next) {
   res.render("inventory/add-classification", {
     title: "Add Classification",
     nav,
-    notice,  // Pass flash messages here
+    notice, 
     errors: [],
   })
 }
@@ -321,21 +321,16 @@ invCont.buildDeleteInventoryView = async function (req, res, next) {
  * ************************** */
 invCont.buildDeleteConfirmationView = async function (req, res, next) {
   try {
-    // Collect inv_id from the request
     const inv_id = parseInt(req.params.inv_id);
     
-    // Build the navigation bar
     let nav = await utilities.getNav();
     
-    // Fetch the inventory item data from the database
     const itemData = await invModel.getInventoryById(inv_id);
     
-    // Build a name variable with make and model for the item
     const itemName = `${itemData.inv_make} ${itemData.inv_model}`;
     
-    // Render the delete confirmation view
     res.render("./inventory/delete-confirm", {
-      title: "Delete " + itemName, //title with the vehicle's make and model
+      title: "Delete " + itemName, 
       nav, 
       errors: null, 
       inv_id: itemData.inv_id, 
@@ -355,10 +350,8 @@ invCont.buildDeleteConfirmationView = async function (req, res, next) {
 invCont.deleteInventory = async function (req, res, next) {
   let nav = await utilities.getNav()
   
-  // Recoge el inv_id desde el cuerpo de la solicitud
   const inv_id = parseInt(req.body.inv_id)
 
-  // Llama al modelo para eliminar el ítem
   const deleteResult = await invModel.deleteInventoryById(inv_id)
 
   if (deleteResult) {

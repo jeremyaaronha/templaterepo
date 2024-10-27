@@ -39,10 +39,8 @@ router.post("/classification",
 router.get('/', utilities.checkLogin, utilities.handleErrors(accountController.renderAccountManagement))
 
 
-// Route to display account update form
 router.get("/update/:account_id", utilities.handleErrors(accountController.buildUpdateAccountView));
 
-// Route to process account update
 router.post("/update", 
   validate.updateAccountRules(),  
   validate.checkUpdateAccountData, 

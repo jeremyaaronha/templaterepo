@@ -23,15 +23,15 @@ async function buildLogin(req, res, next) {
 
   let nav = await utilities.getNav()
   let notice = req.flash('notice') || [];  
-  let errors = req.flash('errors') || [];  // Initialize errors from flash or set to empty array
+  let errors = req.flash('errors') || [];
   const redirectUrl = req.query.redirect || "/account";
 
   res.render("account/login", {
     title: "Login",
     nav,
     notice,
-    errors,  // Send errors to the view
-    redirect: redirectUrl || "/account", // Pasar redirect a la vista
+    errors, 
+    redirect: redirectUrl || "/account",
 
   })
 }
@@ -59,7 +59,6 @@ async function registerAccount(req, res) {
     // Hash the password before storing
   let hashedPassword
   try {
-    // regular password and cost (salt is generated automatically)
     hashedPassword = await bcrypt.hashSync(account_password, 10)
   } catch (error) {
     req.flash("notice", 'Sorry, there was an error processing the registration.')
@@ -106,7 +105,6 @@ async function registerAccount(req, res) {
       return res.redirect('/account/login');  // Redirect back to the login form
     }
   
-  // Si la autenticación es exitosa:
   res.status(200).render("account/dashboard", {
     title: "Dashboard",
     nav,
@@ -127,7 +125,7 @@ async function accountLogin(req, res) {
     return res.status(400).render("account/login", {
       title: "Login",
       nav,
-      notice: req.flash("notice"), // Pass the flash message
+      notice: req.flash("notice"), 
       errors: null,
       account_email,
       redirect: redirectUrl, 
@@ -173,7 +171,7 @@ async function accountLogin(req, res) {
     if (token) {
       accountData = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
     } else {
-      accountData = req.session.account || req.user; // Fall back to session-based authentication
+      accountData = req.session.account || req.user; 
     }
 
     if (!accountData) {
@@ -209,7 +207,7 @@ async function accountLogin(req, res) {
 async function buildUpdateAccountView (req, res, next) {
   const account_id = parseInt(req.params.account_id);
   let nav = await utilities.getNav();
-  const accountData = await accountModel.getAccountById(account_id); // Assuming this function exists
+  const accountData = await accountModel.getAccountById(account_id); 
   
   res.render("account/update-account", {
     title: "Update Account Information",
@@ -219,48 +217,7 @@ async function buildUpdateAccountView (req, res, next) {
   });
 };
 
-/* ***************************
- * Process account update
- * ************************** */
-// async function updateAccount(req, res, next) {
-//   const {
-//     account_id,
-//     account_firstname,
-//     account_lastname,
-//     account_email
-//   } = req.body;
 
-//   let nav = await utilities.getNav();
-//   const updateResult = await accountModel.updateAccount(
-//     account_id, account_firstname, account_lastname, account_email
-//   ); 
-
-//   if (updateResult) {
-//     // Generar nuevo token JWT con la información actualizada
-//     const updatedAccount = {
-//       account_id,
-//       account_firstname,
-//       account_lastname,
-//       account_email,
-//       account_type: updateResult.account_type 
-//     };
-//     const newToken = jwt.sign(updatedAccount, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
-
-//     // Actualizar la cookie con el nuevo token
-//     res.cookie("jwt", newToken, { httpOnly: true, maxAge: 3600 * 1000 });
-
-//     req.flash("notice", "Account updated successfully.");
-//     res.redirect("/account");
-//   } else {
-//     req.flash("notice", "Sorry, the update failed.");
-//     res.status(501).render("account/update-account", {
-//       title: "Update Account Information",
-//       nav,
-//       accountData: req.body, 
-//       errors: null
-//     });
-//   }
-// };
 async function updateAccount(req, res, next) {
   const {
     account_id,
@@ -352,7 +309,6 @@ function authenticateJWT(req, res, next) {
       return res.redirect("/account/login");
     }
 
-    // Store accountData in res.locals or req.user for use in views
     res.locals.account = accountData;
     next();
   });
@@ -409,7 +365,6 @@ async function updateAccountPassword(account_id, hashedPassword) {
   }
 }
 
-// Logout function in accountController.js
 async function logout(req, res) {
   try {
     // Limpiar la cookie que contiene el JWT
@@ -477,7 +432,7 @@ async function getAccountAdmin(req, res) {
   res.render("account/admin", {
       title: "Account Management",
       nav,
-      myReviews, // Pasa las reseñas a la vista
+      myReviews, 
       notice: req.flash("notice"),
   });
 }

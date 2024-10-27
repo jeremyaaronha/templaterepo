@@ -124,7 +124,7 @@ async function buildEditReview(req, res) {
  * ************************** */
 async function updateReview(req, res) {
     const { review_id, review_text } = req.body;
-    const inv_id = req.query.inv_id; // Obtener inv_id de la query string
+    const inv_id = req.query.inv_id; 
     const account_id = req.session.user.account_id;
     
 
